@@ -1,21 +1,141 @@
-```txt
-npm install
-npm run dev
-```
+# 창녕조씨 족보 시스템
 
-```txt
-npm run deploy
-```
+## 프로젝트 개요
+- **이름**: 창녕조씨 족보 시스템 (昌寧曺氏 家譜)
+- **목표**: 창녕조씨 가문의 족보 정보를 디지털화하여 체계적으로 관리하고 조회할 수 있는 웹 시스템
+- **주요 기능**: 
+  - 족보 정보 조회 및 검색
+  - 세대별 구성원 조회
+  - 개별 인물 상세 정보 보기
+  - 족보 통계 대시보드
 
-[For generating/synchronizing types based on your Worker configuration run](https://developers.cloudflare.com/workers/wrangler/commands/#types):
+## URL 정보
+- **개발 서버**: http://localhost:3000
+- **카페24 배포**: 설정 후 업데이트 예정
+- **GitHub**: 설정 후 업데이트 예정
 
-```txt
-npm run cf-typegen
-```
+## 데이터 아키텍처
+- **데이터 모델**: 
+  - 가족 구성원 (family_members): 기본 인물 정보
+  - 배우자 정보 (spouses): 결혼 및 배우자 관련 정보  
+  - 활동 로그 (activity_logs): 변경 이력 추적
+  - 사용자 요청 (user_requests): 사용자 요청사항 관리
+  - 공지사항 (announcements): 시스템 공지
+- **저장 서비스**: 
+  - 개발: 클라이언트 사이드 JavaScript (임시)
+  - 운영: MySQL 데이터베이스 (카페24 호스팅)
+- **데이터 흐름**: 
+  - 프론트엔드 → 검색/필터링 → 결과 표시 → 상세 모달
 
-Pass the `CloudflareBindings` as generics when instantiation `Hono`:
+## 현재 완료된 기능
+✅ **족보 데이터 구조 설계**
+- MySQL 스키마 정의 완료
+- 샘플 데이터 삽입 스크립트 작성
+- SQLite에서 MySQL 변환 완료
 
-```ts
-// src/index.ts
-const app = new Hono<{ Bindings: CloudflareBindings }>()
-```
+✅ **웹 인터페이스 (기본 조회 기능)**
+- 반응형 웹 디자인 (TailwindCSS)
+- 족보 통계 대시보드
+- 이름/한자명 검색 기능  
+- 세대별 조회 기능
+- 개별 인물 상세 정보 모달
+- 한국 전통 디자인 테마
+
+✅ **카페24 호스팅 준비**
+- MySQL 스키마 파일 (cafe24_schema.sql)
+- 데이터 삽입 파일 (cafe24_data_insert.sql)  
+- 배포 가이드 문서 (cafe24_deployment_guide.md)
+- PM2 설정 파일 (ecosystem.config.cjs)
+
+## 현재 기능 URIs
+
+### 메인 페이지
+- **GET /** - 족보 시스템 메인 화면
+  - 통계 대시보드 표시
+  - 검색 및 세대별 조회 인터페이스
+  - 족보 정보 조회 결과 표시
+
+### JavaScript API (클라이언트 사이드)
+- **API.getFamily()** - 전체 족보 데이터 조회
+- **API.getFamilyByGeneration(generation)** - 세대별 조회  
+- **API.getFamilyMember(personCode)** - 개별 인물 조회
+- **API.searchFamily(name)** - 이름/한자명 검색
+- **API.getStats()** - 족보 통계 조회
+- **API.getTree(rootPersonCode)** - 족보 트리 구조 (미구현)
+
+### 정적 파일
+- **/static/styles.css** - 커스텀 스타일시트
+- **/static/app.js** - 메인 JavaScript 애플리케이션
+- **/static/family-data.js** - 족보 데이터 및 API
+
+## 아직 구현되지 않은 기능
+❌ **실시간 데이터베이스 연동**
+- MySQL 연결 및 쿼리 기능
+- 서버 사이드 API 엔드포인트
+- 데이터 CRUD 작업
+
+❌ **고급 족보 기능**
+- 족보 트리 시각화
+- 계보도 자동 생성  
+- 인물 관계 매핑
+
+❌ **관리 기능**
+- 족보 정보 편집 인터페이스
+- 사용자 권한 관리
+- 데이터 백업/복원
+
+❌ **추가 기능**
+- 데이터 내보내기 (CSV, PDF)
+- 인쇄용 족보 생성
+- 모바일 앱 지원
+
+## 권장 다음 단계
+
+### 1단계: 카페24 배포 (우선순위: 높음)
+1. 카페24 웹호스팅 계정 설정
+2. MySQL 데이터베이스 생성 및 스키마 적용
+3. 정적 파일 업로드 및 테스트
+4. 도메인 연결 및 SSL 설정
+
+### 2단계: 서버 사이드 기능 구현 (우선순위: 중간)
+1. MySQL 연결 라이브러리 추가
+2. REST API 엔드포인트 구현
+3. 데이터베이스 연동 테스트
+4. 성능 최적화
+
+### 3단계: 고급 기능 추가 (우선순위: 낮음)
+1. 족보 트리 시각화 라이브러리 도입
+2. 관리자 인터페이스 개발
+3. 데이터 편집 기능 구현
+4. 사용자 인증 시스템 추가
+
+## 사용자 가이드
+1. **검색 방법**: 상단 검색창에 성명 또는 한자명 입력 후 검색 버튼 클릭
+2. **세대별 조회**: 세대별 조회 섹션에서 원하는 세대 버튼 클릭
+3. **상세 정보**: 인물 카드 클릭 시 상세 정보 모달 표시
+4. **전체 보기**: "전체보기" 버튼으로 모든 족보 데이터 조회 가능
+
+## 배포 상태
+- **플랫폼**: 카페24 웹호스팅 (예정)
+- **상태**: ⏳ 배포 준비 완료 (배포 대기)
+- **기술 스택**: HTML/CSS/JavaScript + MySQL
+- **최종 업데이트**: 2025-09-16
+
+## 기술 세부사항
+- **프론트엔드**: Vanilla JavaScript, TailwindCSS, FontAwesome
+- **백엔드**: Node.js, Hono Framework (향후)
+- **데이터베이스**: MySQL 8.0 (카페24)
+- **호스팅**: 카페24 리눅스 웹호스팅
+- **버전 관리**: Git
+- **빌드 도구**: Vite
+- **개발 서버**: PM2
+
+## 문의 및 지원
+- **개발자**: 조영국 (曺永國)
+- **이메일**: jo@jou.kr
+- **전화**: 010-9272-9081
+- **소속**: (주)조유 대표이사
+- **전문분야**: 컴퓨터 IT, 컨설팅, 프로그램 개발
+
+## 라이선스
+MIT License - 창녕조씨 가문 내 자유 사용 허용

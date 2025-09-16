@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>창녕조씨 족보 시스템</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="./static/styles.css" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              korean: {
+                50: '#fef7f0',
+                100: '#fdeee1', 
+                500: '#d97706',
+                700: '#92400e'
+              }
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- 헤더 -->
+    <header class="bg-korean-700 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <i class="fas fa-sitemap text-2xl"></i>
+                    <div>
+                        <h1 class="text-3xl font-bold">창녕조씨 족보</h1>
+                        <p class="text-korean-100">昌寧曺氏 家譜 시스템</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <p class="text-sm">버전 1.0.0</p>
+                    <p class="text-xs text-korean-100">카페24 호스팅</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <!-- 통계 대시보드 -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow p-6 stat-card">
+                <div class="flex items-center">
+                    <i class="fas fa-users text-blue-500 text-2xl mr-3"></i>
+                    <div>
+                        <p class="text-sm text-gray-500">총 인원</p>
+                        <p class="text-2xl font-bold text-gray-900" id="total-members">-</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow p-6 stat-card">
+                <div class="flex items-center">
+                    <i class="fas fa-layer-group text-green-500 text-2xl mr-3"></i>
+                    <div>
+                        <p class="text-sm text-gray-500">세대 수</p>
+                        <p class="text-2xl font-bold text-gray-900" id="generations">-</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow p-6 stat-card">
+                <div class="flex items-center">
+                    <i class="fas fa-heart text-red-500 text-2xl mr-3"></i>
+                    <div>
+                        <p class="text-sm text-gray-500">생존 인원</p>
+                        <p class="text-2xl font-bold text-gray-900" id="living-members">-</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow p-6 stat-card">
+                <div class="flex items-center">
+                    <i class="fas fa-search text-purple-500 text-2xl mr-3"></i>
+                    <div>
+                        <p class="text-sm text-gray-500">검색 기능</p>
+                        <p class="text-sm font-semibold text-gray-900">이름/한자</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 검색 섹션 -->
+        <div class="bg-white rounded-lg shadow mb-8">
+            <div class="p-6 border-b border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-900">
+                    <i class="fas fa-search mr-2"></i>족보 검색
+                </h2>
+            </div>
+            <div class="p-6">
+                <div class="flex flex-wrap gap-4">
+                    <div class="flex-1 min-w-64">
+                        <input type="text" 
+                               id="search-input" 
+                               placeholder="성명 또는 한자명으로 검색..." 
+                               class="search-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-korean-500 focus:border-transparent">
+                    </div>
+                    <button onclick="searchFamily()" 
+                            class="px-6 py-2 bg-korean-600 text-white rounded-lg hover:bg-korean-700 transition-colors">
+                        <i class="fas fa-search mr-2"></i>검색
+                    </button>
+                    <button onclick="showAllGenerations()" 
+                            class="px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-list mr-2"></i>전체보기
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 세대별 네비게이션 -->
+        <div class="bg-white rounded-lg shadow mb-8">
+            <div class="p-6 border-b border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-900">
+                    <i class="fas fa-sitemap mr-2"></i>세대별 조회
+                </h2>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-2">
+                    <button onclick="showGeneration(1)" class="generation-btn p-2 text-sm bg-korean-100 hover:bg-korean-200 rounded transition-colors">
+                        1세대 (시조)
+                    </button>
+                    <button onclick="showGeneration(44)" class="generation-btn p-2 text-sm bg-korean-100 hover:bg-korean-200 rounded transition-colors">
+                        44세대
+                    </button>
+                    <button onclick="showGeneration(45)" class="generation-btn p-2 text-sm bg-korean-100 hover:bg-korean-200 rounded transition-colors">
+                        45세대
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 결과 표시 영역 -->
+        <div class="bg-white rounded-lg shadow">
+            <div class="p-6 border-b border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-900" id="results-title">
+                    <i class="fas fa-users mr-2"></i>족보 정보
+                </h2>
+            </div>
+            <div class="p-6">
+                <div id="results-container">
+                    <p class="text-gray-500 text-center py-8">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        검색하거나 세대를 선택해주세요.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="bg-gray-800 text-white py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p>&copy; 2025 창녕조씨 족보 시스템. Powered by 카페24</p>
+            <p class="text-sm text-gray-400 mt-2">
+                문의: <a href="mailto:jo@jou.kr" class="text-korean-300 hover:underline">jo@jou.kr</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js"></script>
+    <script src="./static/family-data.js"></script>
+    <script src="./static/app.js"></script>
+</body>
+</html>
