@@ -1,0 +1,140 @@
+# 창녕조씨 족보 시스템 - Cafe24 호스팅용 Apache 설정
+# @author 닥터조 ((주)조유 대표이사)
+# @version 3.0
+# @since 2024-09-17
+
+# 기본 인덱스 파일 설정
+DirectoryIndex index.php index.html
+
+# UTF-8 인코딩 설정
+AddDefaultCharset UTF-8
+
+# MIME 타입 설정
+<IfModule mod_mime.c>
+    AddType text/html .php
+    AddType application/json .json
+    AddType text/css .css
+    AddType application/javascript .js
+    AddType image/svg+xml .svg
+</IfModule>
+
+# PHP 설정 (Cafe24에서 지원하는 경우)
+<IfModule mod_php.c>
+    php_value upload_max_filesize 10M
+    php_value post_max_size 10M
+    php_value max_execution_time 300
+    php_value max_input_time 300
+    php_value memory_limit 128M
+    php_value default_charset "UTF-8"
+    php_value mbstring.internal_encoding "UTF-8"
+    php_value date.timezone "Asia/Seoul"
+</IfModule>
+
+# 보안 설정
+<Files ~ "^\.">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# 설정 파일 보호
+<Files "*.inc">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# 백업 파일 보호
+<FilesMatch "\.(bak|backup|old|tmp|log)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# SQL 파일 보호
+<FilesMatch "\.sql$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# 디렉토리 브라우징 금지
+Options -Indexes
+
+# 보안 헤더
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options nosniff
+    Header always set X-Frame-Options DENY
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# 압축 설정 (성능 향상)
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/json
+</IfModule>
+
+# 캐시 설정 (성능 향상)
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    ExpiresByType font/woff "access plus 1 month"
+    ExpiresByType font/woff2 "access plus 1 month"
+</IfModule>
+
+# URL 리라이트 (SEO 친화적 URL)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # HTTPS 리다이렉트 (Cafe24에서 SSL 사용시)
+    # RewriteCond %{HTTPS} off
+    # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    
+    # www 제거 (선택사항)
+    # RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+    # RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+    
+    # 인물 상세 페이지 (예: /person/123 → person.php?id=123)
+    RewriteRule ^person/([0-9]+)/?$ my_profile.php?id=$1 [QSA,L]
+    
+    # 족보 페이지 (예: /tree/3d → tree_3d.php)
+    RewriteRule ^tree/3d/?$ tree_3d.php [QSA,L]
+    RewriteRule ^tree/?$ family_tree.php [QSA,L]
+    
+    # AI 분석 페이지 (예: /ai/analyzer → ai_analyzer.php)
+    RewriteRule ^ai/analyzer/?$ ai_analyzer.php [QSA,L]
+    
+    # 음성 검색 페이지 (예: /voice/search → voice_search.php)
+    RewriteRule ^voice/search/?$ voice_search.php [QSA,L]
+    
+    # 검색 페이지 (예: /search/advanced → advanced_search.php)
+    RewriteRule ^search/advanced/?$ advanced_search.php [QSA,L]
+    
+    # 관리자 페이지 (예: /admin → admin.php)
+    RewriteRule ^admin/?$ admin.php [QSA,L]
+    
+    # API 엔드포인트 (예: /api/persons → api/persons.php)
+    RewriteRule ^api/([^/]+)/?$ api/$1.php [QSA,L]
+</IfModule>
+
+# 에러 페이지 설정
+ErrorDocument 404 /error_404.php
+ErrorDocument 403 /error_403.php
+ErrorDocument 500 /error_500.php
+
+# 로그 설정
+<IfModule mod_log_config.c>
+    LogFormat "%h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined
+    CustomLog logs/access.log combined
+</IfModule>

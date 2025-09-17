@@ -1,0 +1,52 @@
+{
+  "name": "창녕조씨 강릉파보 모바일 족보",
+  "short_name": "창녕조씨 족보",
+  "description": "창녕조씨 강릉파보 모바일 족보 웹앱",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "portrait",
+  "categories": ["lifestyle", "family"],
+  "lang": "ko-KR",
+  "icons": [
+    {
+      "src": "/static/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/static/icon-512.png", 
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "계통도",
+      "short_name": "계통도",
+      "description": "직계 혈통 확인",
+      "url": "/lineage",
+      "icons": [
+        {
+          "src": "/static/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "검색",
+      "short_name": "검색", 
+      "description": "종인 찾기",
+      "url": "/search",
+      "icons": [
+        {
+          "src": "/static/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

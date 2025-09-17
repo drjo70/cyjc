@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>창녕조씨 족보시스템</title>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 500px;
+        }
+        
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .info {
+            margin-top: 2rem;
+            color: #95a5a6;
+            font-size: 14px;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🏮</div>
+        <h1>창녕조씨 족보시스템</h1>
+        <p class="subtitle">시조 조계룡(趙季龍)부터 45세대까지<br>600여 명의 족보 데이터 관리</p>
+        
+        <a href="index.php" class="btn">족보 시스템 시작</a>
+        
+        <div class="info">
+            <p><strong>개발:</strong> 닥터조 (주)조유</p>
+            <p><strong>버전:</strong> 1.0 | <strong>플랫폼:</strong> PHP + MySQL</p>
+            <p><a href="test_db.php" style="color: #95a5a6;">DB 연결 테스트</a></p>
+        </div>
+    </div>
+
+    <script>
+        // 자동 리다이렉트 비활성화됨
+        // setTimeout(function() {
+        //     window.location.href = 'index.php';
+        // }, 3000);
+    </script>
+</body>
+</html>

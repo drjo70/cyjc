@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>계통도 테스트</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-4">
+    <h1 class="text-2xl font-bold mb-4">계통도 연결선 테스트</h1>
+    
+    <div class="mb-4">
+        <button onclick="login()" class="bg-blue-600 text-white px-4 py-2 rounded">로그인 (닥터조)</button>
+        <button onclick="loadLineage()" class="bg-green-600 text-white px-4 py-2 rounded ml-2">계통도 로드</button>
+    </div>
+    
+    <div id="result" class="mt-4 p-4 bg-white rounded shadow">
+        결과가 여기에 표시됩니다.
+    </div>
+
+    <script>
+        function login() {
+            sessionStorage.setItem('userPhone', '010-9272-9081');
+            document.getElementById('result').innerHTML = '<div class="text-green-600">✅ 로그인 성공: 010-9272-9081</div>';
+        }
+        
+        async function loadLineage() {
+            try {
+                const userPhone = sessionStorage.getItem('userPhone');
+                if (!userPhone) {
+                    document.getElementById('result').innerHTML = '<div class="text-red-600">❌ 먼저 로그인하세요</div>';
+                    return;
+                }
+                
+                const response = await fetch('/api/protected/lineage?focus=441258&up=3&down=3&siblings=true', {
+                    headers: {
+                        'Authorization': 'Bearer ' + userPhone,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                console.log('계통도 데이터:', data);
+                
+                let html = '<div class="space-y-4">';
+                html += `<div><strong>포커스 인물:</strong> ${data.focus_person.name} (${data.focus_person.generation}세대, 부모: ${data.focus_person.parent_code})</div>`;
+                html += '<div><strong>직계 조상:</strong></div><ul class="ml-4">';
+                data.direct_ancestors.forEach(person => {
+                    html += `<li>${person.name} (${person.generation}세대) ← ${person.parent_code}</li>`;
+                });
+                html += '</ul></div>';
+                
+                document.getElementById('result').innerHTML = html;
+                
+                // 실제 계통도 페이지로 이동
+                setTimeout(() => {
+                    window.location.href = '/lineage';
+                }, 2000);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('result').innerHTML = '<div class="text-red-600">❌ 오류: ' + error.message + '</div>';
+            }
+        }
+    </script>
+</body>
+</html>
