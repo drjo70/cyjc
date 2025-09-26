@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>창녕조씨 족보 시스템 - 다운로드</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 50px auto; 
+            padding: 20px; 
+            background: #f5f5f5; 
+        }
+        .container { 
+            background: white; 
+            padding: 40px; 
+            border-radius: 10px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+        }
+        .download-btn { 
+            background: #4CAF50; 
+            color: white; 
+            padding: 15px 30px; 
+            border: none; 
+            border-radius: 5px; 
+            font-size: 18px; 
+            text-decoration: none; 
+            display: inline-block; 
+            margin: 20px 0; 
+        }
+        .download-btn:hover { 
+            background: #45a049; 
+        }
+        .info { 
+            background: #e3f2fd; 
+            padding: 15px; 
+            border-left: 4px solid #2196F3; 
+            margin: 20px 0; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏛️ 창녕조씨 족보 시스템</h1>
+        <h2>📦 최신 버전 다운로드</h2>
+        
+        <div class="info">
+            <h3>✅ 세션 오류 수정 완료 버전</h3>
+            <p><strong>파일명:</strong> changnyeongjo_genealogy_session_fixed.zip</p>
+            <p><strong>크기:</strong> 2.0MB</p>
+            <p><strong>수정사항:</strong> 세션 중복 시작 오류 완전 해결</p>
+            <p><strong>생성일:</strong> 2025년 1월 25일</p>
+        </div>
+        
+        <a href="#" onclick="downloadFile()" class="download-btn">
+            📥 ZIP 파일 다운로드
+        </a>
+        
+        <h3>📋 포함된 주요 기능</h3>
+        <ul>
+            <li>✅ 세션 오류 완전 해결</li>
+            <li>✅ 관리자 시스템 (Level 1 전용)</li>
+            <li>✅ 접속 통계 시스템</li>
+            <li>✅ 족보 검색 및 가계도</li>
+            <li>✅ 모바일 최적화</li>
+            <li>✅ PWA 지원</li>
+        </ul>
+        
+        <div class="info">
+            <h4>🚀 설치 방법</h4>
+            <ol>
+                <li>ZIP 파일 다운로드</li>
+                <li>압축 해제</li>
+                <li>Cafe24 호스팅에 업로드</li>
+                <li>admin.php에서 테이블 설정</li>
+            </ol>
+        </div>
+    </div>
+    
+    <script>
+        function downloadFile() {
+            // ZIP 파일 직접 다운로드
+            const link = document.createElement('a');
+            link.href = '../changnyeongjo_genealogy_session_fixed.zip';
+            link.download = 'changnyeongjo_genealogy_session_fixed.zip';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>

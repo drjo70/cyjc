@@ -1,0 +1,54 @@
+{
+  "name": "창녕조씨 족보 시스템",
+  "short_name": "창녕조씨족보",
+  "description": "창녕조씨 디지털 족보 관리 시스템 - 가문의 역사를 언제 어디서나",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4f46e5",
+  "orientation": "portrait-primary",
+  "categories": ["lifestyle", "family", "genealogy"],
+  "lang": "ko-KR",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/static/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/static/icon-512.png", 
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "계통도",
+      "short_name": "계통도",
+      "description": "직계 혈통 확인",
+      "url": "/lineage",
+      "icons": [
+        {
+          "src": "/static/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "검색",
+      "short_name": "검색", 
+      "description": "종인 찾기",
+      "url": "/search",
+      "icons": [
+        {
+          "src": "/static/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

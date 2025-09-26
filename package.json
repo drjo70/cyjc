@@ -1,0 +1,30 @@
+{
+  "name": "창녕조씨족보",
+  "version": "1.0.0", 
+  "description": "창녕조씨 디지털 족보 관리 시스템",
+  "main": "index.php",
+  "scripts": {
+    "build": "echo 'Static PHP files - no build needed'",
+    "cap:add": "npx cap add",
+    "cap:copy": "npx cap copy",
+    "cap:sync": "npx cap sync", 
+    "cap:open": "npx cap open",
+    "android:build": "npx cap copy android && npx cap open android",
+    "android:run": "npx cap run android",
+    "ios:build": "npx cap copy ios && npx cap open ios",
+    "ios:run": "npx cap run ios"
+  },
+  "dependencies": {
+    "@capacitor/android": "^5.5.1",
+    "@capacitor/core": "^5.5.1",
+    "@capacitor/ios": "^5.5.1",
+    "@capacitor/status-bar": "^5.0.6",
+    "@capacitor/splash-screen": "^5.0.6"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^5.5.1"
+  },
+  "author": "닥터조님 ((주)조유)",
+  "license": "MIT",
+  "keywords": ["족보", "가계도", "창녕조씨", "PWA", "모바일"]
+}

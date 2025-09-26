@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4f46e5">
+    <title>오프라인 - 창녕조씨 족보 시스템</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center">
+    <div class="max-w-md mx-auto p-6">
+        <div class="bg-white rounded-2xl shadow-xl p-8 text-center">
+            <!-- 오프라인 아이콘 -->
+            <div class="gradient-bg w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fas fa-wifi-slash text-2xl text-white"></i>
+            </div>
+            
+            <!-- 제목 -->
+            <h1 class="text-2xl font-bold text-gray-800 mb-4">
+                인터넷 연결이 없습니다
+            </h1>
+            
+            <!-- 설명 -->
+            <p class="text-gray-600 mb-6 leading-relaxed">
+                현재 인터넷에 연결되어 있지 않습니다.<br>
+                연결을 확인한 후 다시 시도해주세요.
+            </p>
+            
+            <!-- 캐시된 페이지 안내 -->
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                <div class="flex items-start">
+                    <i class="fas fa-info-circle text-blue-600 mt-1 mr-3"></i>
+                    <div class="text-left">
+                        <p class="text-sm text-blue-800 font-medium mb-1">오프라인 모드</p>
+                        <p class="text-xs text-blue-600">
+                            일부 캐시된 페이지는 오프라인에서도 볼 수 있습니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 액션 버튼 -->
+            <div class="space-y-3">
+                <button onclick="location.reload()" 
+                        class="w-full bg-blue-500 text-white py-3 px-6 rounded-lg hover:bg-blue-600 transition-colors">
+                    <i class="fas fa-sync-alt mr-2"></i>다시 시도
+                </button>
+                
+                <button onclick="history.back()" 
+                        class="w-full bg-gray-500 text-white py-3 px-6 rounded-lg hover:bg-gray-600 transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i>이전 페이지
+                </button>
+                
+                <a href="/" 
+                   class="block w-full bg-green-500 text-white py-3 px-6 rounded-lg hover:bg-green-600 transition-colors text-center">
+                    <i class="fas fa-home mr-2"></i>메인으로
+                </a>
+            </div>
+            
+            <!-- 앱 정보 -->
+            <div class="mt-8 pt-6 border-t border-gray-200">
+                <div class="flex items-center justify-center space-x-2 text-gray-500">
+                    <i class="fas fa-tree"></i>
+                    <span class="text-sm">창녕조씨 족보 시스템</span>
+                </div>
+                <p class="text-xs text-gray-400 mt-1">
+                    v1.0.0 • PWA 지원
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 온라인 상태 복구 감지
+        window.addEventListener('online', function() {
+            // 온라인 복구시 메인 페이지로 이동
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 1000);
+        });
+
+        // 연결 상태 표시
+        function updateConnectionStatus() {
+            const statusElement = document.querySelector('.connection-status');
+            if (statusElement) {
+                if (navigator.onLine) {
+                    statusElement.textContent = '온라인';
+                    statusElement.className = 'connection-status text-green-600';
+                } else {
+                    statusElement.textContent = '오프라인';
+                    statusElement.className = 'connection-status text-red-600';
+                }
+            }
+        }
+
+        window.addEventListener('load', updateConnectionStatus);
+        window.addEventListener('online', updateConnectionStatus);
+        window.addEventListener('offline', updateConnectionStatus);
+    </script>
+</body>
+</html>

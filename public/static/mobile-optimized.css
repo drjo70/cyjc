@@ -1,0 +1,214 @@
+/* 창녕조씨 족보 시스템 - 모바일 최적화 CSS */
+
+/* 기본 최적화 */
+* {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-touch-callout: none;
+}
+
+/* 스크롤 최적화 */
+html {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+}
+
+/* 터치 타겟 최적화 */
+.touch-target {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+}
+
+/* 버튼 호버 효과 비활성화 (모바일) */
+@media (hover: none) and (pointer: coarse) {
+    .hover\:bg-blue-600:hover,
+    .hover\:bg-green-600:hover,
+    .hover\:bg-purple-600:hover,
+    .hover\:bg-orange-600:hover {
+        background-color: inherit;
+    }
+}
+
+/* 모바일 전용 스타일 */
+@media (max-width: 768px) {
+    /* 폰트 크기 조정 */
+    body {
+        font-size: 16px; /* iOS 줌 방지 */
+    }
+    
+    /* 입력 필드 최적화 */
+    input, textarea, select {
+        font-size: 16px; /* iOS 줌 방지 */
+        border-radius: 0.5rem;
+    }
+    
+    /* 카드 간격 조정 */
+    .mobile-card {
+        margin-bottom: 1rem;
+        padding: 1rem;
+    }
+    
+    /* 버튼 크기 증가 */
+    .mobile-btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+    
+    /* 그리드 간격 조정 */
+    .mobile-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    /* 텍스트 크기 조정 */
+    .mobile-text-lg {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+    }
+    
+    /* 네비게이션 개선 */
+    .mobile-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        border-top: 1px solid #e5e7eb;
+        z-index: 50;
+        padding: env(safe-area-inset-bottom) 0 0 0;
+    }
+}
+
+/* 소형 화면 (iPhone SE 등) */
+@media (max-width: 375px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .text-2xl {
+        font-size: 1.5rem;
+        line-height: 2rem;
+    }
+    
+    .text-xl {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+    }
+}
+
+/* Safe area 지원 */
+@supports (padding: max(0px)) {
+    .safe-area-top {
+        padding-top: max(1rem, env(safe-area-inset-top));
+    }
+    
+    .safe-area-bottom {
+        padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    }
+    
+    .safe-area-left {
+        padding-left: max(1rem, env(safe-area-inset-left));
+    }
+    
+    .safe-area-right {
+        padding-right: max(1rem, env(safe-area-inset-right));
+    }
+}
+
+/* 다크모드 지원 */
+@media (prefers-color-scheme: dark) {
+    .dark-mode-bg {
+        background-color: #1f2937;
+    }
+    
+    .dark-mode-text {
+        color: #f9fafb;
+    }
+    
+    .dark-mode-border {
+        border-color: #374151;
+    }
+}
+
+/* 애니메이션 최적화 */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* 스크롤 개선 */
+.mobile-scroll {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    scroll-snap-type: y mandatory;
+}
+
+.scroll-item {
+    scroll-snap-align: start;
+}
+
+/* 로딩 최적화 */
+.lazy-load {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.lazy-load.loaded {
+    opacity: 1;
+}
+
+/* 터치 피드백 */
+.touch-feedback:active {
+    transform: scale(0.98);
+    opacity: 0.8;
+}
+
+/* 모바일 메뉴 애니메이션 */
+.mobile-menu-transition {
+    transition: max-height 0.3s ease-in-out;
+    overflow: hidden;
+}
+
+/* PWA 스타일 */
+.pwa-install-prompt {
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    z-index: 1000;
+    transform: translateY(100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.pwa-install-prompt.show {
+    transform: translateY(0);
+}
+
+/* 오프라인 인디케이터 */
+.offline-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #f59e0b;
+    color: white;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.875rem;
+    z-index: 9999;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.offline-indicator.show {
+    transform: translateY(0);
+}
